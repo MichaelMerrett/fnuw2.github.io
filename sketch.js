@@ -131,9 +131,9 @@ let jumpscareShakeTimer = 0;
 let jumpscareBurstFired = false;
 
 //all
-let width = 1920;
+let width = 2560;
 let mainWidth = width * 1.2953125; // so max translate is 567 at 1080p
-let height = 1080;
+let height = 1440;
 let mainFont;
 
 //characters
@@ -2383,6 +2383,9 @@ function mouseClicked() {
                     } else if (keyIsDown(53)) {
                         night = 5;
                         menuButtons[2].text = "Skipping to night 5..."
+                    } else if (keyIsDown(54) && keyIsDown(SHIFT)) {
+                        night = 6;
+                        menuButtons[2].text = "Skipping to night 6... nice"
                     } else {
                         menuButtons[2].text = "Good luck :)"
                     }

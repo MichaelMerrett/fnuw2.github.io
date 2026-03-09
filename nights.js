@@ -79,16 +79,16 @@ nights = [
     //evil
     {
         title: "Glhf",
-        money: 40,
-        abdullah: 15,
-        darren: 15,
-        alex: 15,
-        evan: 18,
-        aidan: 15,
-        jack: 15,
-        sean: 18,
-        sahil: 15,
-        michael: 10
+        money: 20,
+        abdullah: 20,
+        darren: 20,
+        alex: 20,
+        evan: 20,
+        aidan: 20,
+        jack: 20,
+        sean: 20,
+        sahil: 20,
+        michael: 20
     },
 
     //test
