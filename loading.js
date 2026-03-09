@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const loadingManager = {
         assetCounter: 0,
-        totalAssets: 524, // Update this number based on the actual total assets being loaded + 1
+        totalAssets: 523, // Update this number based on the actual total assets being loaded + 1
         progressBar: document.getElementById('progress-bar'),
         loadingScreen: document.getElementById('loading-screen'),
         gameRoot: document.getElementById('game-root'),
