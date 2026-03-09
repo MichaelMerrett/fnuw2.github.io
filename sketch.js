@@ -1024,7 +1024,6 @@ function preload() {
     mainFont = loadFont("assets/VCR_OSD_MONO.ttf", assetLoaded);
     debugLog("Loading images...")
     cameraMap = loadImageWrapper("assets/images/cameras.png");
-    computerView = loadImageWrapper("assets/images/pc_done.png")
 
     // load the cams
     abdullahCam[0] = loadImageWrapper("assets/images/abdullah/frame0.webp");
