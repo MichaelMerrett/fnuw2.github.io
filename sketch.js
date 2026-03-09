@@ -348,7 +348,7 @@ alex.changeInternetUsage = function(amount) {
             alex.active = 0;
             alex.target = floor(random(1, 12)); // pick a random cam to hack
             alex.calmProgress = 1000;
-            alex.killTimer = 15000 - alex.ai * 200;
+            alex.killTimer = 20000 - alex.ai * 200;
         }
         if (oldPosition != alex.position) {
             playWalkingSound();
