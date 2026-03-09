@@ -1,0 +1,72 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#game-root {
+  position: relative;
+  width: fit-content;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+
+.fuzzy-overlay {
+  position: absolute;
+  inset: -200%;
+  background-image: url("noise.png");
+  opacity: 15%;
+  z-index: 10;
+  pointer-events: none;
+
+  animation: shift 0.2s linear infinite both;
+}
+
+@keyframes shift {
+    0% {
+        transform: translateX(10%) translateY(10%);
+    }
+
+    100% {
+        transform: translateX(-10%) translateY(-10%);
+    }
+}
+
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  color: white;
+  font-family: monospace;
+}
+
+#loading-text {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+#progress-bar-container {
+  width: 80%;
+  height: 30px;
+  border: 2px solid white;
+}
+
+#progress-bar {
+  width: 0%;
+  height: 100%;
+  background-color: white;
+}
+
+.hidden {
+  display: none;
+}
