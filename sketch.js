@@ -585,7 +585,7 @@ jack.active = 1;
 jack.tick = function() {
     if (jack.ai > 0) {
         jack.timeSinceLastAngerIncreaseChance += deltaTime;
-        if (jack.timeSinceLastAngerIncreaseChance >= 3000) {
+        if (jack.timeSinceLastAngerIncreaseChance >= 10000) {
             jack.timeSinceLastAngerIncreaseChance = 0;
             if (random() < jack.ai / 20) {
                 jack.increaseAnger(1);
