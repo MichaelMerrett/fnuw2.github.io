@@ -131,9 +131,9 @@ let jumpscareShakeTimer = 0;
 let jumpscareBurstFired = false;
 
 //all
-let width = 2560;
+let width = 1920;
 let mainWidth = width * 1.2953125; // so max translate is 567 at 1080p
-let height = 1440;
+let height = 1080;
 let mainFont;
 
 //characters
