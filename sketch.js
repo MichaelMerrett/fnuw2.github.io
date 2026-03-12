@@ -131,9 +131,9 @@ let jumpscareShakeTimer = 0;
 let jumpscareBurstFired = false;
 
 //all
-let width = window.innerWidth;
-let mainWidth = width * 1.2953125; // so max translate is 567 at 1080p
-let height = window.innerHeight;
+let GAME_WIDTH = window.innerWidth;
+let mainWidth = GAME_WIDTH * 1.2953125; // so max translate is 567 at 1080p
+let GAME_HEIGHT = window.innerHeight;
 let mainFont;
 
 //characters
@@ -440,7 +440,7 @@ darren.tick = function() {
 }
 darren.isBeingLookedAt = function() {
     //this only checks if hes being looked at in the main view
-    if (level == "main" && (darren.position >= 3 && darren.position <= 5) && currentTranslate < mainWidth - width) {
+    if (level == "main" && (darren.position >= 3 && darren.position <= 5) && currentTranslate < mainWidth - GAME_WIDTH) {
         return true;
     }
     return false;
@@ -554,7 +554,7 @@ evan.tick = function() {
 }
 evan.isBeingLookedAt = function() {
     //only check main
-    if (level == "main" && (evan.position == 7 || evan.position == 11) && currentTranslate < mainWidth - width) {
+    if (level == "main" && (evan.position == 7 || evan.position == 11) && currentTranslate < mainWidth - GAME_WIDTH) {
         return true;
     }
     return false;
@@ -740,7 +740,7 @@ sean.isOnCam = function() {
     return false;
 }
 sean.isBeingLookedAtInMainView = function() {
-    if (level == "main" && (sean.position >= 7 && sean.position <= 9) && currentTranslate < mainWidth - width) {
+    if (level == "main" && (sean.position >= 7 && sean.position <= 9) && currentTranslate < mainWidth - GAME_WIDTH) {
         return true;
     }
     return false;
@@ -888,19 +888,19 @@ class CamButton {
             fill(96, 96, 96, 180);
         }
         stroke(255);
-        strokeWeight(width * 0.0025);
-        rect(this.xPos * width, this.yPos * height, 0.06 * width, 0.06 * height);
+        strokeWeight(GAME_WIDTH * 0.0025);
+        rect(this.xPos * GAME_WIDTH, this.yPos * GAME_HEIGHT, 0.06 * GAME_WIDTH, 0.06 * GAME_HEIGHT);
         pop();
         push();
-        textSize(0.018 * width);
+        textSize(0.018 * GAME_WIDTH);
         textFont(mainFont);
         fill(255);
-        text("Cam" + (this.camNum).toString().padStart(2, '0'), this.xPos * width + 0.003 * width, this.yPos * height + 0.055 * height);
+        text("Cam" + (this.camNum).toString().padStart(2, '0'), this.xPos * GAME_WIDTH + 0.003 * GAME_WIDTH, this.yPos * GAME_HEIGHT + 0.055 * GAME_HEIGHT);
         pop();
     }
 
     checkClicked() {
-        if (mouseX > this.xPos * width && mouseX < (this.xPos + 0.06) * width && mouseY > this.yPos * height && mouseY < (this.yPos + 0.06) * height) {
+        if (mouseX > this.xPos * GAME_WIDTH && mouseX < (this.xPos + 0.06) * GAME_WIDTH && mouseY > this.yPos * GAME_HEIGHT && mouseY < (this.yPos + 0.06) * GAME_HEIGHT) {
             return true;
         }
         return false;
@@ -911,8 +911,8 @@ class CamTool {
     constructor(xPos, yPos, text) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = 0.15;
-        this.height = 0.1;
+        this.GAME_WIDTH = 0.15;
+        this.GAME_HEIGHT = 0.1;
         this.text = text;
     }
 
@@ -921,19 +921,19 @@ class CamTool {
         fill(96, 96, 96, 180);
         stroke(255);
         strokeWeight(5);
-        rect(this.xPos * width, this.yPos * height, this.width * width, this.height * height);
+        rect(this.xPos * GAME_WIDTH, this.yPos * GAME_HEIGHT, this.GAME_WIDTH * GAME_WIDTH, this.GAME_HEIGHT * GAME_HEIGHT);
         pop();
         push();
-        textSize(0.03 * width);
+        textSize(0.03 * GAME_WIDTH);
         textFont(mainFont);
         fill(255);
-        textLeading(0.04 * height);
-        text(this.text, this.xPos * width + 0.003 * width, this.yPos * height + 0.05 * height);
+        textLeading(0.04 * GAME_HEIGHT);
+        text(this.text, this.xPos * GAME_WIDTH + 0.003 * GAME_WIDTH, this.yPos * GAME_HEIGHT + 0.05 * GAME_HEIGHT);
         pop();
     }
 
     checkClicked() {
-        if (mouseX > this.xPos * width && mouseX < (this.xPos + this.width) * width && mouseY > this.yPos * height && mouseY < (this.yPos + this.height) * height) {
+        if (mouseX > this.xPos * GAME_WIDTH && mouseX < (this.xPos + this.GAME_WIDTH) * GAME_WIDTH && mouseY > this.yPos * GAME_HEIGHT && mouseY < (this.yPos + this.GAME_HEIGHT) * GAME_HEIGHT) {
             return true;
         }
         return false;
@@ -944,14 +944,14 @@ class PanelButton {
     constructor(text, row) {
         this.text = text;
         this.row = row;
-        this.offset = height * 0.05 * row;
-        this.bbox = mainFont.textBounds(this.text, 0.55 * width, 0.4 * height + this.offset, 0.018 * width);
+        this.offset = GAME_HEIGHT * 0.05 * row;
+        this.bbox = mainFont.textBounds(this.text, 0.55 * GAME_WIDTH, 0.4 * GAME_HEIGHT + this.offset, 0.018 * GAME_WIDTH);
         this.actionTimer = 0;
     }
 
     draw() {
         push();
-        textSize(0.018 * width);
+        textSize(0.018 * GAME_WIDTH);
         textFont(mainFont);
         fill(255);
         let addition = " ";
@@ -961,7 +961,7 @@ class PanelButton {
                 addition += ".";
             }
         }
-        text(this.text + addition, 0.55 * width, 0.4 * height + this.offset);
+        text(this.text + addition, 0.55 * GAME_WIDTH, 0.4 * GAME_HEIGHT + this.offset);
         pop();
     }
 
@@ -985,7 +985,7 @@ class MenuButton {
         this.xPos = xPos;
         this.yPos = yPos;
         this.visible = true;
-        this.bbox = mainFont.textBounds(this.text, this.xPos * width, this.yPos * height, 0.03 * width);
+        this.bbox = mainFont.textBounds(this.text, this.xPos * GAME_WIDTH, this.yPos * GAME_HEIGHT, 0.03 * GAME_WIDTH);
     }
 
     draw() {
@@ -993,14 +993,14 @@ class MenuButton {
             return;
         }
         push();
-        textSize(0.03 * width);
+        textSize(0.03 * GAME_WIDTH);
         if (this.checkClicked()) {
             fill(200);
         } else {
             fill(255);
         }
         textFont(mainFont);
-        text(this.text, this.xPos * width, this.yPos * height);
+        text(this.text, this.xPos * GAME_WIDTH, this.yPos * GAME_HEIGHT);
         pop();
     }
 
@@ -1421,41 +1421,41 @@ function changeImageDimensions(newWidth, newHeight) {
     newsPaper.resize(newWidth, newHeight);
 
     //create buffers
-    mainBuffer = createGraphics(mainWidth, height);
+    mainBuffer = createGraphics(mainWidth, GAME_HEIGHT);
     rebuildMainBuffer();
 
     //create composited camera buffers for multi-character cams
-    cam2Buffer = createGraphics(width, height);
-    cam9Buffer = createGraphics(width, height);
+    cam2Buffer = createGraphics(GAME_WIDTH, GAME_HEIGHT);
+    cam9Buffer = createGraphics(GAME_WIDTH, GAME_HEIGHT);
     rebuildCam2Buffer();
     rebuildCam9Buffer();
 
     //create camera activate buffer
-    camActivateBuffer = createGraphics(width, height);
+    camActivateBuffer = createGraphics(GAME_WIDTH, GAME_HEIGHT);
     camActivateBuffer.fill(0, 0, 0, 0);
     camActivateBuffer.stroke(200);
-    camActivateBuffer.strokeWeight(width * 0.0025);
-    camActivateBuffer.rect(width * 0.225, height * 0.9, width * 0.35, height * 0.2, width * 0.02);
-    camActivateBuffer.line(width * 0.4, height * 0.925, width * 0.25, height * 0.95);
-    camActivateBuffer.line(width * 0.4, height * 0.925, width * 0.55, height * 0.95);
-    camActivateBuffer.line(width * 0.4, height * 0.945, width * 0.25, height * 0.97);
-    camActivateBuffer.line(width * 0.4, height * 0.945, width * 0.55, height * 0.97);
+    camActivateBuffer.strokeWeight(GAME_WIDTH * 0.0025);
+    camActivateBuffer.rect(GAME_WIDTH * 0.225, GAME_HEIGHT * 0.9, GAME_WIDTH * 0.35, GAME_HEIGHT * 0.2, GAME_WIDTH * 0.02);
+    camActivateBuffer.line(GAME_WIDTH * 0.4, GAME_HEIGHT * 0.925, GAME_WIDTH * 0.25, GAME_HEIGHT * 0.95);
+    camActivateBuffer.line(GAME_WIDTH * 0.4, GAME_HEIGHT * 0.925, GAME_WIDTH * 0.55, GAME_HEIGHT * 0.95);
+    camActivateBuffer.line(GAME_WIDTH * 0.4, GAME_HEIGHT * 0.945, GAME_WIDTH * 0.25, GAME_HEIGHT * 0.97);
+    camActivateBuffer.line(GAME_WIDTH * 0.4, GAME_HEIGHT * 0.945, GAME_WIDTH * 0.55, GAME_HEIGHT * 0.97);
 
     //create panel activate buffer
-    panelActivateBuffer = createGraphics(mainWidth, height);
+    panelActivateBuffer = createGraphics(mainWidth, GAME_HEIGHT);
     panelActivateBuffer.fill(0, 0, 0, 0);
     panelActivateBuffer.stroke(200);
-    panelActivateBuffer.strokeWeight(width * 0.0025);
-    panelActivateBuffer.rect(mainWidth - 0.1 * height, height * 0.4, height * 0.2, height * 0.2, width * 0.02);
-    panelActivateBuffer.line(mainWidth - 0.05 * height, height * 0.5, mainWidth - 0.02 * height, height * 0.55);
-    panelActivateBuffer.line(mainWidth - 0.05 * height, height * 0.5, mainWidth - 0.02 * height, height * 0.45);
-    panelActivateBuffer.line(mainWidth - 0.075 * height, height * 0.5, mainWidth - 0.045 * height, height * 0.55);
-    panelActivateBuffer.line(mainWidth - 0.075 * height, height * 0.5, mainWidth - 0.045 * height, height * 0.45);
+    panelActivateBuffer.strokeWeight(GAME_WIDTH * 0.0025);
+    panelActivateBuffer.rect(mainWidth - 0.1 * GAME_HEIGHT, GAME_HEIGHT * 0.4, GAME_HEIGHT * 0.2, GAME_HEIGHT * 0.2, GAME_WIDTH * 0.02);
+    panelActivateBuffer.line(mainWidth - 0.05 * GAME_HEIGHT, GAME_HEIGHT * 0.5, mainWidth - 0.02 * GAME_HEIGHT, GAME_HEIGHT * 0.55);
+    panelActivateBuffer.line(mainWidth - 0.05 * GAME_HEIGHT, GAME_HEIGHT * 0.5, mainWidth - 0.02 * GAME_HEIGHT, GAME_HEIGHT * 0.45);
+    panelActivateBuffer.line(mainWidth - 0.075 * GAME_HEIGHT, GAME_HEIGHT * 0.5, mainWidth - 0.045 * GAME_HEIGHT, GAME_HEIGHT * 0.55);
+    panelActivateBuffer.line(mainWidth - 0.075 * GAME_HEIGHT, GAME_HEIGHT * 0.5, mainWidth - 0.045 * GAME_HEIGHT, GAME_HEIGHT * 0.45);
 }
 
 function setup() {
     console.log(assetsLoaded);
-    const canvas = createCanvas(width, height);
+    const canvas = createCanvas(GAME_WIDTH, GAME_HEIGHT);
     canvas.parent("game-root");
 
     // Delay DOM lookup until setup so the element exists reliably.
@@ -1501,7 +1501,7 @@ function setup() {
     pizzaBack = new PanelButton("> Back", 1);
 
     debugLog("Resizing images...")
-    changeImageDimensions(width, height);
+    changeImageDimensions(GAME_WIDTH, GAME_HEIGHT);
     debugLog("Finished resizing images");
 
     debugLog(JSON.stringify(nights))
@@ -1562,35 +1562,35 @@ function draw() {
 
             //draw char 1
             if (char1Twitching == 0) {
-                image(menuCharacters[0][0], width * 0.3, 0);
+                image(menuCharacters[0][0], GAME_WIDTH * 0.3, 0);
             } else if (char1Twitching == 1) {
-                image(menuCharacters[0][1], width * 0.3, 0);
+                image(menuCharacters[0][1], GAME_WIDTH * 0.3, 0);
             } else if (char1Twitching == 2) {
-                image(menuCharacters[0][2], width * 0.3, 0);
+                image(menuCharacters[0][2], GAME_WIDTH * 0.3, 0);
             }
 
             //draw char 2
             if (char2Twitching == 0) {
-                image(menuCharacters[1][0], width * 0.5, height * 0.025);
+                image(menuCharacters[1][0], GAME_WIDTH * 0.5, GAME_HEIGHT * 0.025);
             } else if (char2Twitching == 1) {
-                image(menuCharacters[1][1], width * 0.5, height * 0.025);
+                image(menuCharacters[1][1], GAME_WIDTH * 0.5, GAME_HEIGHT * 0.025);
             } else if (char2Twitching == 2) {
-                image(menuCharacters[1][2], width * 0.5, height * 0.025);
+                image(menuCharacters[1][2], GAME_WIDTH * 0.5, GAME_HEIGHT * 0.025);
             }
 
             //draw char 3
             if (char3Twitching == 0) {
-                image(menuCharacters[2][0], width * 0.7, height * 0.05);
+                image(menuCharacters[2][0], GAME_WIDTH * 0.7, GAME_HEIGHT * 0.05);
             } else if (char3Twitching == 1) {
-                image(menuCharacters[2][1], width * 0.7, height * 0.05);
+                image(menuCharacters[2][1], GAME_WIDTH * 0.7, GAME_HEIGHT * 0.05);
             } else if (char3Twitching == 2) {
-                image(menuCharacters[2][2], width * 0.7, height * 0.05);
+                image(menuCharacters[2][2], GAME_WIDTH * 0.7, GAME_HEIGHT * 0.05);
             }
 
-            textSize(0.05 * width);
+            textSize(0.05 * GAME_WIDTH);
             textFont(mainFont);
             fill(255);
-            text("Five Nights\nUntil Wednesday", 0.05 * width, 0.15 * width)
+            text("Five Nights\nUntil Wednesday", 0.05 * GAME_WIDTH, 0.15 * GAME_WIDTH)
             for (let i of menuButtons) {
                 i.draw();
             }
@@ -1598,7 +1598,7 @@ function draw() {
             if (menuTransitionTimer > 0) {
                 menuTransitionTimer -= deltaTime;
                 fill(0, 0, 0, map(menuTransitionTimer, 2000, 0, 0, 255));
-                rect(0, 0, width, height);
+                rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                 if (menuTransitionTimer <= 0) {
                     if (night == 1 && !hasSeenNews) {
                         newsPaperTransitionInTimer = 2000;
@@ -1626,7 +1626,7 @@ function draw() {
             if (newsPaperTransitionInTimer > 0) {
                 newsPaperTransitionInTimer -= deltaTime;
                 fill(0, 0, 0, map(newsPaperTransitionInTimer, 2000, 0, 255, 0));
-                rect(0, 0, width, height);
+                rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                 if (newsPaperTransitionInTimer <= 0) {
                     newsPaperTransitionInTimer = 0;
                     newsPaperTimer = 8000; // Show the newspaper for 8 seconds
@@ -1640,7 +1640,7 @@ function draw() {
             } else if (newsPaperTransitionOutTimer > 0) {
                 newsPaperTransitionOutTimer -= deltaTime;
                 fill(0, 0, 0, map(newsPaperTransitionOutTimer, 2000, 0, 0, 255));
-                rect(0, 0, width, height);
+                rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                 if (newsPaperTransitionOutTimer <= 0) {
                     newsPaperTransitionOutTimer = 0;
                     //enter night description
@@ -1657,13 +1657,13 @@ function draw() {
             push();
             textAlign(CENTER, CENTER);
             fill(255);
-            textSize(width * 0.05);
+            textSize(GAME_WIDTH * 0.05);
             textFont(mainFont)
-            text("Night " + night, width / 2, height / 2 - (height * 0.1));
-            textSize(width * 0.025);
-            text('"'+nightDescription+'"', width/2, height/2);
-            textSize(width*0.05);
-            text("12:00 AM", width/2, height/2 + (height*0.1));
+            text("Night " + night, GAME_WIDTH / 2, GAME_HEIGHT / 2 - (GAME_HEIGHT * 0.1));
+            textSize(GAME_WIDTH * 0.025);
+            text('"'+nightDescription+'"', GAME_WIDTH/2, GAME_HEIGHT/2);
+            textSize(GAME_WIDTH*0.05);
+            text("12:00 AM", GAME_WIDTH/2, GAME_HEIGHT/2 + (GAME_HEIGHT*0.1));
             pop();
 
             if (nightDescriptionTimer > 0) {
@@ -1719,7 +1719,7 @@ function draw() {
             if (jumpscareTimer > 0) {
                 jumpscareTimer -= deltaTime;
                 currentTranslate -= 1000 * deltaTime / 1000;
-                currentTranslate = constrain(currentTranslate, 0, mainWidth - width);
+                currentTranslate = constrain(currentTranslate, 0, mainWidth - GAME_WIDTH);
                 if (jumpscareTimer <= 0) {
                     stopAllSounds();
                     //play the jumpscare
@@ -1767,7 +1767,7 @@ function draw() {
             }
 
             // update the move queue, move queue is only used for characters that are moving to / from the main view.
-            if ((level != "main" && moveQueue.length > 0) || (level == "main" && currentTranslate == mainWidth - width)) {
+            if ((level != "main" && moveQueue.length > 0) || (level == "main" && currentTranslate == mainWidth - GAME_WIDTH)) {
                 let moveExecuted = false;
                 for (let i of moveQueue) {
                     i[0].position = i[1];
@@ -1863,13 +1863,13 @@ function draw() {
                     // Calculate panning velocity
                     if (jumpscareTimer <= 0) {
                         let vel = 0;
-                        if (mouseX < 0.25 * width) {
-                            vel = map(mouseX, 0, 0.25 * width, -1000, -500) * deltaTime / 1000;
-                        } else if (mouseX > 0.75 * width) {
-                            vel = map(mouseX, 0.75 * width, width, 500, 1000) * deltaTime / 1000;
+                        if (mouseX < 0.25 * GAME_WIDTH) {
+                            vel = map(mouseX, 0, 0.25 * GAME_WIDTH, -1000, -500) * deltaTime / 1000;
+                        } else if (mouseX > 0.75 * GAME_WIDTH) {
+                            vel = map(mouseX, 0.75 * GAME_WIDTH, GAME_WIDTH, 500, 1000) * deltaTime / 1000;
                         }
                         currentTranslate += vel;
-                        currentTranslate = constrain(currentTranslate, 0, mainWidth - width);
+                        currentTranslate = constrain(currentTranslate, 0, mainWidth - GAME_WIDTH);
                     }
                         
                     image(mainBuffer, -currentTranslate, 0);
@@ -1892,7 +1892,7 @@ function draw() {
                     }
                     if (camFlipUpTimer > 0) {
                         camFlipUpTimer = max(camFlipUpTimer - deltaTime, 0);
-                        image(camUp[floor((250 - camFlipUpTimer) / 28)], 0, 0, width, height);
+                        image(camUp[floor((250 - camFlipUpTimer) / 28)], 0, 0, GAME_WIDTH, GAME_HEIGHT);
                         if (camFlipUpTimer <= 0) {
                             level = "cameras";
                             setCameraOverlay(true);
@@ -1922,7 +1922,7 @@ function draw() {
                         // scale the camera opening animation so we can reuse assets
                         push();
                         rotate(-HALF_PI);
-                        image(camUp[floor((250 - panelFlipUpTimer) / 28)], -3 * height / 4, width / 2, height / 2, width / 2);
+                        image(camUp[floor((250 - panelFlipUpTimer) / 28)], -3 * GAME_HEIGHT / 4, GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH / 2);
                         pop();
                         if (panelFlipUpTimer <= 0) {
                             panelOpen = true;
@@ -1937,26 +1937,26 @@ function draw() {
                         // Consolidate all panel rendering into one push/pop block
                         push();
                         rotate(-HALF_PI);
-                        image(camUp[9], -3 * height / 4, width / 2, height / 2, width / 2);
+                        image(camUp[9], -3 * GAME_HEIGHT / 4, GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH / 2);
                         pop();
 
                         //draw the contents of the panel
                         push();
                         fill (0, 0, 0, 0);
                         stroke(255);
-                        strokeWeight(width * 0.0025);
-                        rect(width * 0.5 + width * 0.01, height * 0.25 + width * 0.01, width * 0.5 - width * 0.02, height * 0.5 - width * 0.02);
+                        strokeWeight(GAME_WIDTH * 0.0025);
+                        rect(GAME_WIDTH * 0.5 + GAME_WIDTH * 0.01, GAME_HEIGHT * 0.25 + GAME_WIDTH * 0.01, GAME_WIDTH * 0.5 - GAME_WIDTH * 0.02, GAME_HEIGHT * 0.5 - GAME_WIDTH * 0.02);
                         pop();
 
                         if (panelTurnOnTimer > 0) {
                             panelTurnOnTimer = max(panelTurnOnTimer - deltaTime, 0);
                             push();
                             //draw startup screen
-                            textSize(0.02 * width);
+                            textSize(0.02 * GAME_WIDTH);
                             textAlign(CENTER, CENTER);
                             textFont(mainFont);
                             fill(180);
-                            text("Loading", width * 0.75, height * 0.5);
+                            text("Loading", GAME_WIDTH * 0.75, GAME_HEIGHT * 0.5);
                             pop();
                         } else {
                             if (!soundHolder.pcIdle.isPlaying()) {
@@ -2009,11 +2009,11 @@ function draw() {
                             }
                             //draw the amount of money you have for pizza and beer
                             push();
-                            textSize(0.018 * width);
+                            textSize(0.018 * GAME_WIDTH);
                             textFont(mainFont);
                             fill(255);
                             textAlign(RIGHT, TOP);
-                            text("$" + money.toFixed(2), 0.95 * width, 0.3 * height);
+                            text("$" + money.toFixed(2), 0.95 * GAME_WIDTH, 0.3 * GAME_HEIGHT);
                             pop();
                         }
 
@@ -2031,30 +2031,30 @@ function draw() {
                         panelFlipDownTimer = max(panelFlipDownTimer - deltaTime, 0);
                         push();
                         rotate(-HALF_PI);
-                        image(camDown[floor((200 - panelFlipDownTimer) / 28.6)], -3 * height / 4, width / 2, height / 2, width / 2);
+                        image(camDown[floor((200 - panelFlipDownTimer) / 28.6)], -3 * GAME_HEIGHT / 4, GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH / 2);
                         pop();
                     }
 
                     //if sean is attacking, flicker the screen
                     if (sean.killTimer > 0) {
                         fill(0, 0, 0, 20);
-                        rect(0, 0, width, height);
+                        rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                         fill(0, 0, 0, random(50, 150));
-                        rect(0, 0, width, height);
+                        rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                     }
 
                     //if you are recovering from a sean attack, fade the screen back in
                     push();
                     if (sean.attackRecoveryTimer > 0) {
                         fill(0, 0, 0, map(sean.attackRecoveryTimer, 0, 4000, 0, 255));
-                        rect(0, 0, width, height);
+                        rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                     }
                     pop();
 
                     //if the screen is flickering from a michael effect, fade the screen back in
                     if (flickerTimer > 0) {
                         fill(0, 0, 0, map(flickerTimer, 0, 500, 0, 255));
-                        rect(0, 0, width, height);
+                        rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                     }
                     break;
                 case "cameras":
@@ -2078,7 +2078,7 @@ function draw() {
                         case 5: //aidan cam
                             push();
                             scale(-1, 1);
-                            translate(-width, 0)
+                            translate(-GAME_WIDTH, 0)
                             image(aidanCam[Math.min(aidan.position, 10)], 0, 0);
                             pop();
                             break;
@@ -2150,7 +2150,7 @@ function draw() {
                     //if alex has a target and we are on his cam, draw alex in the cam
                     if (currentCam == alex.target) {
                         imageMode(CENTER);
-                        image(alexHacker, random(-width * 0.05, width + width * 0.05), random(-height * 0.05, height + height * 0.05));
+                        image(alexHacker, random(-GAME_WIDTH * 0.05, GAME_WIDTH + GAME_WIDTH * 0.05), random(-GAME_HEIGHT * 0.05, GAME_HEIGHT + GAME_HEIGHT * 0.05));
                         imageMode(CORNER);
                         alex.calmProgress -= deltaTime;
                         if (alex.calmProgress <= 0) {
@@ -2205,7 +2205,7 @@ function draw() {
                         for (let i = 0; i < numRects; i++) {
                             fill(random(128, 255), random(50, 200));
                             noStroke();
-                            rect(0, random(-height * 0.2, height), width, random(height * 0.05, height * 0.15));
+                            rect(0, random(-GAME_HEIGHT * 0.2, GAME_HEIGHT), GAME_WIDTH, random(GAME_HEIGHT * 0.05, GAME_HEIGHT * 0.15));
                         }
                     }
                     break;
@@ -2217,11 +2217,11 @@ function draw() {
                 incrementTime();
             }
             push();
-            textSize(0.05 * width);
+            textSize(0.05 * GAME_WIDTH);
             textAlign(RIGHT, TOP);
             textFont(mainFont);
             fill(220);
-            text(time.toString() + " AM", width * 0.95, height * 0.05);
+            text(time.toString() + " AM", GAME_WIDTH * 0.95, GAME_HEIGHT * 0.05);
             pop();
 
             //if a phone call is playing, draw the end call button
@@ -2243,7 +2243,7 @@ function draw() {
                 let shakeY = 0;
                 if (jumpscareShakeTimer > 0) {
                     jumpscareShakeTimer = max(0, jumpscareShakeTimer - deltaTime);
-                    let intensity = map(jumpscareShakeTimer, 0, 180, 0, width * 0.02);
+                    let intensity = map(jumpscareShakeTimer, 0, 180, 0, GAME_WIDTH * 0.02);
                     shakeX = random(-intensity, intensity);
                     shakeY = random(-intensity, intensity);
                 }
@@ -2313,9 +2313,9 @@ function draw() {
             push();
             textAlign(CENTER, CENTER);
             fill(255);
-            textSize(width * 0.05);
+            textSize(GAME_WIDTH * 0.05);
             textFont(mainFont)
-            text("Custom Night (Not implemented yet, also no back button lol)", width / 2, height * 0.1);
+            text("Custom Night (Not implemented yet, also no back button lol)", GAME_WIDTH / 2, GAME_HEIGHT * 0.1);
             break;
     }
     
@@ -2428,8 +2428,8 @@ function handleGameClick() {
             darren.timeSinceLastMoveAttempt = darren.ai * 250 - 10000; //now you have a better reason to flash darren since it will freeze him for a bit
         }
     } else if (level == "main") {
-        // debugLog(mouseX / width + ", " + mouseY / height);
-        if (darren.siphoning && mouseX > 0.75 * width - currentTranslate && mouseX < 0.85 * width - currentTranslate && mouseY > 0.6 * height && mouseY < 0.75 * height) {
+        // debugLog(mouseX / GAME_WIDTH + ", " + mouseY / GAME_HEIGHT);
+        if (darren.siphoning && mouseX > 0.75 * GAME_WIDTH - currentTranslate && mouseX < 0.85 * GAME_WIDTH - currentTranslate && mouseY > 0.6 * GAME_HEIGHT && mouseY < 0.75 * GAME_HEIGHT) {
             darren.siphoning = false;
             darren.position = 0;
             soundHolder.ventClose.play();
@@ -2565,7 +2565,7 @@ function handleGameClick() {
 function drawCamMap() {
     push();
     scale(0.75);
-    image(cameraMap, width * 0.645, height * 0.323);
+    image(cameraMap, GAME_WIDTH * 0.645, GAME_HEIGHT * 0.323);
     pop();
     for (let i of camButtons) {
         i.draw();
@@ -2575,7 +2575,7 @@ function drawCamMap() {
 let mouseLeftCamActivateButton = true;
 
 function isMouseInCamActivateButton() {
-    if (mouseX > width * 0.225 && mouseX < width * 0.575 && mouseY > height * 0.9 && mouseY < height * 1.1) {
+    if (mouseX > GAME_WIDTH * 0.225 && mouseX < GAME_WIDTH * 0.575 && mouseY > GAME_HEIGHT * 0.9 && mouseY < GAME_HEIGHT * 1.1) {
         return true;
     }
     return false;
@@ -2584,14 +2584,14 @@ function isMouseInCamActivateButton() {
 let mouseLeftPanelOpenButton = true;
 
 function isMouseInPanel() {
-    if (mouseX > width * 0.5 && mouseY > height * 0.25 && mouseY < height * 0.75) {
+    if (mouseX > GAME_WIDTH * 0.5 && mouseY > GAME_HEIGHT * 0.25 && mouseY < GAME_HEIGHT * 0.75) {
         return true;
     }
     return false;
 }
 
 function isMouseInPanelOpenButton() {
-    if (mouseX > width - 0.1  *height && mouseY > height * 0.4 && mouseY < height * 0.6 && currentTranslate >= mainWidth - width) {
+    if (mouseX > GAME_WIDTH - 0.1  *GAME_HEIGHT && mouseY > GAME_HEIGHT * 0.4 && mouseY < GAME_HEIGHT * 0.6 && currentTranslate >= mainWidth - GAME_WIDTH) {
         return true;
     }
     return false;
